@@ -1,0 +1,18 @@
+name: Lint CloudFormation Templates
+
+on: [pull_request]
+
+jobs:
+  cloudformation-linter:
+
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+      
+    - name: cfn-lint
+      uses: docker://ghcr.io/scottbrenner/cfn-lint-action:master
+      with:
+          args: "-I -i E3012 -i W2001 -- iam/*.yml networking/**/*vpc.yml"
